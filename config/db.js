@@ -1,28 +1,16 @@
-const {Sequelize} = require("sequelize");
+const { Sequelize } = require("sequelize");
+const fs = require("fs");
+const path = require("path");
+
+const dataDir = path.join(__dirname, "../data");
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
 
 const sequelize = new Sequelize({
-    dialect:"sqlite",
-    storage:"./data/test_db.sqlite",
-    logging:false
-})
+  dialect: "sqlite",
+  storage: path.join(dataDir, "test_db.sqlite"),
+  logging: false
+});
 
-// {
-//     development:{
-//         dialect:"sqlite",
-//         storage:"./data/dev-db.sqlite",
-//         logging:false
-//     },
-//     test:{
-//         dialect:"sqlite",
-//         storage:"./data/test-db.sqlite",
-//         logging:false
-//     },
-//     development:{
-//         dialect:"sqlite",
-//         storage:"./data/prod-db.sqlite",
-//         logging:false
-//     }
-
-// }
-
-module.exports = sequelize 
+module.exports = sequelize; 
